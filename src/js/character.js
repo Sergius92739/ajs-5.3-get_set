@@ -46,25 +46,14 @@ export default class Character {
     }
   }
 
-  get upAttack() {
+  get upProperties() {
     if (this.control) {
       this.attack *= 2;
-    }
-    return this.attack;
-  }
-
-  get upDefence() {
-    if (this.control) {
       this.defence *= 2;
-    }
-    return this.defence;
-  }
-
-  get upHealth() {
-    if (this.control) {
       this.health *= 2;
+      this.control = false;
     }
-    return this.health;
+    return this;
   }
 
   set powerMode(value) {

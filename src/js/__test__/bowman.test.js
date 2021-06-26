@@ -48,35 +48,31 @@ test('if health became negative, output health must be 0', () => {
   expect(bowman.health).toBe(0);
 });
 
-test('свойство upAttack должно увеличивать свойство attack в 2 раза', () => {
+test('свойство upProperties должно увеличивать показатели персонажа в 2 раза', () => {
   const bowman = new Bowman('Test');
-  expect(bowman.upAttack).toBe(50);
+  const expected = {
+    name: 'Test',
+    type: 'Bowman',
+    health: 200,
+    level: 1,
+    attack: 50,
+    defence: 50,
+    control: false,
+  };
+  expect(bowman.upProperties).toEqual(expected);
 });
 
-test('свойство upDefence должно увеличивать свойство defence в 2 раза', () => {
+test('свойство upProperties должно увеличивать показатели персонажа только 1 раз', () => {
   const bowman = new Bowman('Test');
-  expect(bowman.upDefence).toBe(50);
-});
-
-test('свойство upHealth должно увеличивать свойство health в 2 раза', () => {
-  const bowman = new Bowman('Test');
-  expect(bowman.upHealth).toBe(200);
-});
-
-test('свойство upAttack не должно увеличивать свойство attack', () => {
-  const bowman = new Bowman('Test');
-  bowman.powerMode = false;
-  expect(bowman.upAttack).toBe(25);
-});
-
-test('свойство upDefence не должно увеличивать свойство defence', () => {
-  const bowman = new Bowman('Test');
-  bowman.powerMode = false;
-  expect(bowman.upDefence).toBe(25);
-});
-
-test('свойство upHealth не должно увеличивать свойство health', () => {
-  const bowman = new Bowman('Test');
-  bowman.powerMode = false;
-  expect(bowman.upHealth).toBe(100);
+  const expected = {
+    name: 'Test',
+    type: 'Bowman',
+    health: 200,
+    level: 1,
+    attack: 50,
+    defence: 50,
+    control: false,
+  };
+  expect(bowman.upProperties).toEqual(expected);
+  expect(bowman.upProperties).toEqual(bowman);
 });
