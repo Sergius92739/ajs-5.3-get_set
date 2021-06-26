@@ -8,7 +8,8 @@ test('Must correctly create Bowman character object', () => {
     level: 1,
     attack: 25,
     defence: 25,
-    control: true,
+    control: false,
+    counter: 3,
   };
   expect(new Bowman('Test')).toEqual(expected);
 });
@@ -48,8 +49,9 @@ test('if health became negative, output health must be 0', () => {
   expect(bowman.health).toBe(0);
 });
 
-test('свойство upProperties должно увеличивать показатели персонажа в 2 раза', () => {
+test('свойство upProperties должно увеличивать показатели персонажа только 1 раз', () => {
   const bowman = new Bowman('Test');
+  bowman.powerMode = true;
   const expected = {
     name: 'Test',
     type: 'Bowman',
@@ -57,22 +59,32 @@ test('свойство upProperties должно увеличивать пока
     level: 1,
     attack: 50,
     defence: 50,
-    control: false,
+    control: true,
+    counter: 2,
+  };
+  expect(bowman.upProperties).toEqual(expected);
+  expect(bowman.upProperties).toEqual(bowman);
+});
+
+test('при обращении к upProperties, если counter = 0, attack/defence/health уменьшаются в 2 раза', () => {
+  const bowman = new Bowman('Test');
+  bowman.counter = 0;
+  bowman.powerMode = true;
+  const expected = {
+    name: 'Test',
+    type: 'Bowman',
+    health: 100,
+    level: 1,
+    attack: 25,
+    defence: 25,
+    control: true,
+    counter: null,
   };
   expect(bowman.upProperties).toEqual(expected);
 });
 
-test('свойство upProperties должно увеличивать показатели персонажа только 1 раз', () => {
+test('при попытке выставить powerMode = false, выбрасывает ошибку', () => {
   const bowman = new Bowman('Test');
-  const expected = {
-    name: 'Test',
-    type: 'Bowman',
-    health: 200,
-    level: 1,
-    attack: 50,
-    defence: 50,
-    control: false,
-  };
-  expect(bowman.upProperties).toEqual(expected);
-  expect(bowman.upProperties).toEqual(bowman);
+  bowman.powerMode = true;
+  expect(() => { bowman.powerMode = false; }).toThrowError('powerMode можно вызвать только 1 раз.');
 });

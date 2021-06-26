@@ -6,7 +6,8 @@ test('Must correctly create an object of the base class', () => {
     type: 'Bowman',
     health: 100,
     level: 1,
-    control: true,
+    control: false,
+    counter: 3,
   };
   expect(new Character('Test', 'Bowman')).toEqual(expected);
 });

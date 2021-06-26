@@ -24,7 +24,8 @@ export default class Character {
     this.type = type;
     this.health = 100;
     this.level = 1;
-    this.control = true;
+    this.control = false;
+    this.counter = 3;
   }
 
   levelUP() {
@@ -47,16 +48,27 @@ export default class Character {
   }
 
   get upProperties() {
-    if (this.control) {
-      this.attack *= 2;
-      this.defence *= 2;
-      this.health *= 2;
-      this.control = false;
+    if (this.control && this.counter !== 0) {
+      this.counter -= 1;
+      return this;
+    }
+    if (this.counter === 0) {
+      this.attack /= 2;
+      this.defence /= 2;
+      this.health /= 2;
+      this.counter = null;
+      return this;
     }
     return this;
   }
 
   set powerMode(value) {
+    if (value === false) {
+      throw new Error('powerMode можно вызвать только 1 раз.');
+    }
+    this.attack *= 2;
+    this.defence *= 2;
+    this.health *= 2;
     this.control = value;
   }
 
